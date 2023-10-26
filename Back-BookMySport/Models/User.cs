@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+
+using System.ComponentModel.DataAnnotations;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Back_BookMySport.Models
@@ -28,3 +29,4 @@ namespace Back_BookMySport.Models
         public string Password { get; set; }
     }
 }
+
