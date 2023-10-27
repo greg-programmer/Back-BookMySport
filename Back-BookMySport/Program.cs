@@ -13,11 +13,13 @@ using Microsoft.OpenApi.Models;
 using ScottBrady91.AspNetCore.Identity;
 using Swashbuckle.AspNetCore.Filters;
 using System.Text;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 string connectionString = builder.Configuration.GetConnectionString("DefaultConnectionString");
 builder.Services.AddAuthorization();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));

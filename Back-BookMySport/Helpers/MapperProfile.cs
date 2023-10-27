@@ -9,6 +9,8 @@ namespace Back_BookMySport.Helpers
          public MaperProfile() 
         {
             CreateMap<User, RegisterRequestDTO>().ReverseMap();
+            CreateMap<User, LoginRequestDTO>().ReverseMap();
+            CreateMap<User, GetUserDTO>().ReverseMap();
         }
     }
 }

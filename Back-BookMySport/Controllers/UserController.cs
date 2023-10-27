@@ -41,9 +41,9 @@ namespace Back_BookMySport.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login(string email, string password)
+        public async Task<IActionResult> Login(LoginRequestDTO loginRequestDTO)
         {
-             var userConnected = await _login.Login(email, password);
+            var userConnected = await _login.Login(loginRequestDTO.Email, loginRequestDTO.Password);
             if (userConnected != null)
             {
                 List<Claim> claims = new List<Claim>()
@@ -73,6 +73,26 @@ namespace Back_BookMySport.Controllers
                 });
                 }
             return Unauthorized();              
-        }       
+        }
+        [HttpPut]
+        public async Task<IActionResult> Update(string id , RegisterRequestDTO registerRequestDTO)
+        {
+            if(await _user.Update(id, registerRequestDTO))
+            {
+                return Ok("Utilisateur Modifié !");
+            };
+            return NotFound("Utilisateur est introuvable ou l'email existe déjà !");
+            
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetById(string id)
+        {
+           var user = await _user.GetUser(id);
+            if(user == null)
+            {
+                return NotFound();
+            }
+            return Ok(user);
+        }
     }
 }
