@@ -7,16 +7,6 @@ public class Gym
     public string Phone { get; set; }
     public string Address { get; set; }
     public List<Session> OpenSessions { get; set; }
-    public List<Commentary> Commentaries { get; set; }
-    public SportCategory Sport { get; set; }
+
 }
 
-public enum SportCategory
-{
-    Boxe,
-    Gym,
-    Dance,
-    Football,
-    Basketball,
-    Tennis
-}

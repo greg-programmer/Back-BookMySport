@@ -8,35 +8,35 @@ namespace Back_BookMySport.Services;
 public class BookingService : IRepository<Booking>
 {
     private ApplicationDbContext _dbContext;
-    public BookingService()
+    public BookingService(ApplicationDbContext dbContext)
     {
-        
+        _dbContext = dbContext;
     }
     public async Task<int> Add(Booking booking)
     {
-        var addedObj = await _dbContext.BookingsDBList.AddAsync(booking);
+        var addedObj = await _dbContext.Bookings.AddAsync(booking);
         await _dbContext.SaveChangesAsync();
         return addedObj.Entity.Id;
     }
 
     public async Task<Booking?> GetById(int id)
     {
-        return await _dbContext.BookingsDBList.FindAsync(id);
+        return await _dbContext.Bookings.FindAsync(id);
     }
 
     public async Task<Booking?> Get(Expression<Func<Booking, bool>> predicate)
     {
-        return await _dbContext.BookingsDBList.FirstOrDefaultAsync(predicate);
+        return await _dbContext.Bookings.FirstOrDefaultAsync(predicate);
     }
 
     public async Task<List<Booking>> GetAll()
     {
-        return await _dbContext.BookingsDBList.ToListAsync();
+        return await _dbContext.Bookings.ToListAsync();
     }
 
     public async Task<List<Booking>> GetAll(Expression<Func<Booking, bool>> predicate)
     {
-        return await _dbContext.BookingsDBList.Where(predicate).ToListAsync();
+        return await _dbContext.Bookings.Where(predicate).ToListAsync();
     }
 
     public Task<bool> Update(Booking entity)
@@ -49,7 +49,7 @@ public class BookingService : IRepository<Booking>
         var booking = await GetById(id);
         if (booking == null)
             return false;
-        _dbContext.BookingsDBList.Remove(booking);
+        _dbContext.Bookings.Remove(booking);
         return await _dbContext.SaveChangesAsync() > 0;
     }
 }
