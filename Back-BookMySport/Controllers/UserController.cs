@@ -1,4 +1,5 @@
-﻿using Back_BookMySport.Helpers;
+﻿using Back_BookMySport.DTOS;
+using Back_BookMySport.Helpers;
 using Back_BookMySport.Models;
 using Back_BookMySport.Repositories;
 using Back_BookMySport.Services;
@@ -30,9 +31,9 @@ namespace Back_BookMySport.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(User user)
+        public async Task<IActionResult> Create(RegisterRequestDTO userDTO)
         {
-            if (await _user.Create(user))
+            if (await _user.Create(userDTO))
             {
                 return Ok("Utilisateur créé !");
             }
@@ -71,8 +72,7 @@ namespace Back_BookMySport.Controllers
                     User = userConnected.Id,
                 });
                 }
-            return Unauthorized();
-              
+            return Unauthorized();              
         }       
     }
 }

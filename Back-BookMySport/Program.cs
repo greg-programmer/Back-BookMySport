@@ -87,7 +87,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ClockSkew = TimeSpan.Zero // décallage possible de l'expiration du token
         };
     });
-
+// ajouter le service IMapper de AutoMapper
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -98,6 +99,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseAuthentication();
+
 app.UseAuthorization();
 app.MapControllers();
 
