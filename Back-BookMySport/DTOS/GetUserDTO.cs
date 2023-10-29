@@ -5,7 +5,7 @@ namespace Back_BookMySport.DTOS
     public class GetUserDTO
     {
         [Required]
-        public string LastName { get; set; }
+        public string LastName  { get; set; }
         [Required]
         public string FirstName { get; set; }
         [Required]
