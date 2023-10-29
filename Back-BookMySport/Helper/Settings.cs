@@ -1,4 +1,4 @@
-﻿namespace Back_BookMySport.Helpers
+﻿namespace Back_BookMySport.Helper
 {
     public class Settings
     {

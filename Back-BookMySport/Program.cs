@@ -1,17 +1,12 @@
 ﻿using Back_BookMySport.Data;
-using Back_BookMySport.Helpers;
+using Back_BookMySport.Helper;
 using Back_BookMySport.Models;
 using Back_BookMySport.Repositories;
 using Back_BookMySport.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using ScottBrady91.AspNetCore.Identity;
-using Swashbuckle.AspNetCore.Filters;
 using System.Text;
 using System.Text.Json.Serialization;
 
@@ -34,8 +29,7 @@ builder.Services.AddIdentityCore<User>(options =>
     options.Password.RequireLowercase = true;
     options.Password.RequireUppercase = true;
 })
-            .AddEntityFrameworkStores<ApplicationDbContext>();         
-builder.Services.AddScoped<BCryptPasswordHasher<User>>();
+            .AddEntityFrameworkStores<ApplicationDbContext>();  
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>

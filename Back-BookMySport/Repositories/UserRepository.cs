@@ -4,21 +4,16 @@ using Back_BookMySport.DTOS;
 using Back_BookMySport.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic;
-using ScottBrady91.AspNetCore.Identity;
-
 namespace Back_BookMySport.Repositories
 {
     public class UserRepository : IUser
     {
-        private readonly  BCryptPasswordHasher<User> _Hasher;
         private readonly ApplicationDbContext _db;
         private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
 
-        public UserRepository(BCryptPasswordHasher<User> hasher, ApplicationDbContext db, UserManager<User> userManager,IMapper mapper)
+        public UserRepository( ApplicationDbContext db, UserManager<User> userManager,IMapper mapper)
         {
-            _Hasher = hasher;
             _db = db;
             _userManager = userManager;
             _mapper = mapper;
