@@ -34,7 +34,7 @@ namespace Back_BookMySport.Repositories
             user.UserName = registerRequestDTO.UserName ;
             user.PasswordHash = registerRequestDTO.PasswordHash ;
             user.PhoneNumber = registerRequestDTO.PhoneNumber ;          
-            await _userManager.CreateAsync(user, user.PasswordHash);          
+            await _userManager.CreateAsync(user, user.PasswordHash );          
              await _db.SaveChangesAsync();    
             return true;            
         }
