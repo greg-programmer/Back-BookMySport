@@ -9,7 +9,7 @@ public class MapperProfile : Profile
 {
     public MapperProfile()
     {
-        CreateMap<Booking,BookingDTO>().ReverseMap();
+         CreateMap<Booking,BookingDTO>().ReverseMap();
         CreateMap<Session,SessionDTO>().ReverseMap();
         CreateMap<SportCategory,SportCategoryDTO>().ReverseMap();
         CreateMap<Gym,GymDTO>().ReverseMap();
