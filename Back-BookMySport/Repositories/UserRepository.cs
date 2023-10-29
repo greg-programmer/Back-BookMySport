@@ -22,15 +22,19 @@ namespace Back_BookMySport.Repositories
         //Méthode pour créer un utilisateur/
         public async Task<bool> Create(RegisterRequestDTO registerRequestDTO)
         {
-            User user = new User();            
-            RegisterRequestDTO registerDTO = _mapper.Map<RegisterRequestDTO>(user);
-
-            var userExist = await _userManager.FindByNameAsync(user.UserName);
+                                
+            var userExist = await _userManager.FindByNameAsync(registerRequestDTO.UserName);
             if(userExist != null)
             {
                 return false;
             }
-             await _userManager.CreateAsync(user, user.PasswordHash);           
+            User user = new User();
+            user.FirstName = registerRequestDTO.FirstName ;
+            user.LastName = registerRequestDTO.LastName ;
+            user.UserName = registerRequestDTO.UserName ;
+            user.PasswordHash = registerRequestDTO.PasswordHash ;
+            user.PhoneNumber = registerRequestDTO.PhoneNumber ;          
+            await _userManager.CreateAsync(user, user.PasswordHash);          
              await _db.SaveChangesAsync();    
             return true;            
         }
@@ -70,7 +74,7 @@ namespace Back_BookMySport.Repositories
                 {
                     user.LastName = registerRequestDTO.LastName;
                 }
-                if(user.UserName != registerRequestDTO.Email) 
+                if(user.UserName != registerRequestDTO.UserName) 
                 {
                     var userExist = await _userManager.FindByNameAsync(user.UserName);
                     if (userExist != null)
@@ -82,14 +86,13 @@ namespace Back_BookMySport.Repositories
                 {
                     user.PhoneNumber = registerRequestDTO.PhoneNumber;
                 }
-                if(user.PasswordHash != registerRequestDTO.password)
+                if(user.PasswordHash != registerRequestDTO.PasswordHash)
                 {
-                    user.PasswordHash = registerRequestDTO.password;
+                    user.PasswordHash = registerRequestDTO.PasswordHash;
                 }
                 return true;
             }        
       
-            RegisterRequestDTO registerDTO = _mapper.Map<RegisterRequestDTO>(user);
             if(user != null)
             {
                 _db.Users.Add(user);

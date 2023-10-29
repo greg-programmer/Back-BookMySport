@@ -4,11 +4,14 @@ using Back_BookMySport.Models;
 using Back_BookMySport.Repositories;
 using Back_BookMySport.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
-using System.Text.Json.Serialization;
+using System.Text.Json.Serialization ;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,8 +23,10 @@ builder.Services.AddAuthorization();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddScoped<IUser, UserRepository>();
 builder.Services.AddScoped<ILogin, LoginService>();
+builder.Services.AddScoped<IRepository<Booking>, BookingService>();
+builder.Services.AddScoped<IRepository<Session>, SessionService>();
 builder.Services.AddScoped<Settings>();
-builder.Services.AddIdentityCore<User>(options =>
+builder.Services.AddIdentityCore<User>(options  =>
 {
     options.Password.RequiredLength = 8;
     options.Password.RequireNonAlphanumeric = true;

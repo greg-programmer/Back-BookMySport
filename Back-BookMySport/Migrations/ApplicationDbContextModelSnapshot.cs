@@ -22,6 +22,163 @@ namespace Back_BookMySport.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Back_BookMySport.Models.Booking", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("BookDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("SessionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SessionId");
+
+                    b.ToTable("Bookings");
+                });
+
+            modelBuilder.Entity("Back_BookMySport.Models.Gym", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Gyms");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "1 rue Lille, 59000 Lille",
+                            Name = "Fitness Park",
+                            Phone = "0608090909"
+                        });
+                });
+
+            modelBuilder.Entity("Back_BookMySport.Models.Session", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("FinishTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("GymId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MaxBooking")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SportCategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GymId");
+
+                    b.HasIndex("SportCategoryId")
+                        .IsUnique();
+
+                    b.ToTable("Sessions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Séance de fitness",
+                            FinishTime = new DateTime(2023, 10, 27, 17, 0, 0, 0, DateTimeKind.Unspecified),
+                            GymId = 1,
+                            ImagePath = "",
+                            MaxBooking = 3,
+                            Name = "Séance 1",
+                            SportCategoryId = 1,
+                            StartTime = new DateTime(2023, 10, 27, 16, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
+                });
+
+            modelBuilder.Entity("Back_BookMySport.Models.SportCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SportCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Fitness"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Basketball"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Football"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Boxe"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Volley"
+                        });
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -250,6 +407,36 @@ namespace Back_BookMySport.Migrations
                     b.HasDiscriminator().HasValue("User");
                 });
 
+            modelBuilder.Entity("Back_BookMySport.Models.Booking", b =>
+                {
+                    b.HasOne("Back_BookMySport.Models.Session", "Session")
+                        .WithMany("Bookings")
+                        .HasForeignKey("SessionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Session");
+                });
+
+            modelBuilder.Entity("Back_BookMySport.Models.Session", b =>
+                {
+                    b.HasOne("Back_BookMySport.Models.Gym", "Gym")
+                        .WithMany("OpenSessions")
+                        .HasForeignKey("GymId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Back_BookMySport.Models.SportCategory", "SportCategory")
+                        .WithOne("Session")
+                        .HasForeignKey("Back_BookMySport.Models.Session", "SportCategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Gym");
+
+                    b.Navigation("SportCategory");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -299,6 +486,21 @@ namespace Back_BookMySport.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Back_BookMySport.Models.Gym", b =>
+                {
+                    b.Navigation("OpenSessions");
+                });
+
+            modelBuilder.Entity("Back_BookMySport.Models.Session", b =>
+                {
+                    b.Navigation("Bookings");
+                });
+
+            modelBuilder.Entity("Back_BookMySport.Models.SportCategory", b =>
+                {
+                    b.Navigation("Session");
                 });
 #pragma warning restore 612, 618
         }
