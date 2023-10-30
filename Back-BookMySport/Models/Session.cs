@@ -37,5 +37,6 @@ public class Session
     public Gym Gym { get; set; }
     
     //One-to-many bookings
+    [JsonIgnore]
     public List<Booking> Bookings { get; set; }
 }

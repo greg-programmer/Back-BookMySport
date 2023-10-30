@@ -5,4 +5,5 @@ namespace Back_BookMySport.DTOs;
 public class BookingDTO
 {
     public DateTime BookDate { get; set; }
+    public SessionUserBookedDTO Session { get; set; }
 }

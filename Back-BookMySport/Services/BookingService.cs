@@ -31,7 +31,7 @@ public class BookingService : IRepository<Booking>
 
     public async Task<List<Booking>> GetAll()
     {
-        return await _dbContext.Bookings.ToListAsync();
+        return await _dbContext.Bookings.Include(s => s.Session.Gym).Include(s=>s.Session.SportCategory).ToListAsync();
     }
 
     public async Task<List<Booking>> GetAll(Expression<Func<Booking, bool>> predicate)
