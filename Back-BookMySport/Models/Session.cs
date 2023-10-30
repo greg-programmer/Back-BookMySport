@@ -29,7 +29,7 @@ public class Session
 
     public int SportCategoryId { get; set; }
     [JsonIgnore]
-    public SportCategory? SportCategory { get; set; }
+    public SportCategory SportCategory { get; set; }
     
     //One-to-many Gyms
     public int GymId { get; set; }
