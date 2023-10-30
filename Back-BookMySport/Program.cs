@@ -19,10 +19,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 string connectionString = builder.Configuration.GetConnectionString("DefaultConnectionString");
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddAuthorization();
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(connectionString));
 builder.Services.AddScoped<IUser, UserRepository>();
-builder.Services.AddScoped<ILogin, LoginService>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRepository<Booking>, BookingService>();
 builder.Services.AddScoped<IRepository<Session>, SessionService>();
 builder.Services.AddScoped<Settings>();
@@ -98,6 +99,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors(options => options.WithOrigins("http://localhost:3000").AllowAnyMethod().AllowAnyHeader());
 
 app.UseAuthentication();
 

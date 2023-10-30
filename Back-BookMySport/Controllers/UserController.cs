@@ -3,6 +3,8 @@ using Back_BookMySport.Helper;
 using Back_BookMySport.Models;
 using Back_BookMySport.Repositories;
 using Back_BookMySport.Services;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -20,14 +22,16 @@ namespace Back_BookMySport.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUser _user;      
-        private readonly ILogin _login;
+        private readonly IUserService _login;
         private readonly Settings _settings;
+        private IHttpContextAccessor _httpContextAccessor;
 
-        public UserController(IUser user, ILogin login, IOptions<Settings> optionAppSettings)
+        public UserController(IUser user, IUserService login, IOptions<Settings> optionAppSettings, IHttpContextAccessor httpContextAccessor)
         {
             _user = user;
             _login = login;
-            _settings =optionAppSettings.Value;
+            _settings = optionAppSettings.Value;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         [HttpPost]
@@ -74,20 +78,35 @@ namespace Back_BookMySport.Controllers
                 }
             return Unauthorized();              
         }
+        [Authorize]
         [HttpPut]
-        public async Task<IActionResult> Update(string id , RegisterRequestDTO registerRequestDTO)
+        public async Task<IActionResult> Update(string userId , RegisterRequestDTO registerRequestDTO)
         {
-            if(await _user.Update(id, registerRequestDTO))
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            string userConnected = identity.FindFirst("UserId").Value;
+            if (userConnected != userId)
+            {
+                return Forbid();
+            }
+         
+            if (await _user.Update(userId, registerRequestDTO))
             {
                 return Ok("Utilisateur Modifié !");
             };
             return NotFound("Utilisateur est introuvable ou l'email existe déjà !");
             
         }
+        [Authorize]
         [HttpGet]
-        public async Task<IActionResult> GetById(string id)
+        public async Task<IActionResult> GetById(string userId)
         {
-           var user = await _user.GetUser(id);
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            string userConnected = identity.FindFirst("UserId").Value;
+            if (userConnected != userId)
+            {
+                return Forbid();
+            }
+            var user = await _user.GetUser(userId);
             if(user == null)
             {
                 return NotFound();

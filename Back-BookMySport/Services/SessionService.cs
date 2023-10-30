@@ -69,4 +69,9 @@ public class SessionService : IRepository<Session>
         _dbContext.Sessions.Remove(session);
         return await _dbContext.SaveChangesAsync() > 0;
     }
+
+    public Task<List<Session>> GetAllFromUser(string id)
+    {
+        throw new NotImplementedException();
+    }
 }

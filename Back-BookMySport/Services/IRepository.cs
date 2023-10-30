@@ -4,6 +4,7 @@ namespace Back_BookMySport.Services;
 
 public interface IRepository<TEntity>
 {
+    Task<List<TEntity>> GetAllFromUser(string id);
     Task<int> Add(TEntity entity);
     // READ
     Task<TEntity?> GetById(int id);

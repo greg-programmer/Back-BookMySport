@@ -18,6 +18,12 @@ public class BookingService : IRepository<Booking>
         await _dbContext.SaveChangesAsync();
         return addedObj.Entity.Id;
     }
+    public async Task<Booking> AddBooking(Booking booking)
+    {
+        var addedObj = await _dbContext.Bookings.AddAsync(booking);
+        await _dbContext.SaveChangesAsync();
+        return booking ;
+    } 
 
     public async Task<Booking?> GetById(int id)
     {
@@ -32,6 +38,10 @@ public class BookingService : IRepository<Booking>
     public async Task<List<Booking>> GetAll()
     {
         return await _dbContext.Bookings.ToListAsync();
+    }
+    public async Task<List<Booking>> GetAllFromUser(string id)
+    {
+        return await _dbContext.Bookings.Where(b => b.UserId == id).ToListAsync();
     }
 
     public async Task<List<Booking>> GetAll(Expression<Func<Booking, bool>> predicate)

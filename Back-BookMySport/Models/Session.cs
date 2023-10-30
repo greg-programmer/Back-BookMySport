@@ -30,12 +30,14 @@ public class Session
     public int SportCategoryId { get; set; }
     [JsonIgnore]
     public SportCategory? SportCategory { get; set; }
-    
+    public int UserId { get; set; }
+    public User User { get; set; }
     //One-to-many Gyms
     public int GymId { get; set; }
     [JsonIgnore]
     public Gym Gym { get; set; }
-    
+
     //One-to-many bookings
-    public List<Booking> Bookings { get; set; }
+    public List<Booking> Bookings { get; set; } = new List<Booking>();   
+
 }

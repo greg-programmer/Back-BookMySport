@@ -36,9 +36,15 @@ namespace Back_BookMySport.Migrations
                     b.Property<int>("SessionId")
                         .HasColumnType("int");
 
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("SessionId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Bookings");
                 });
@@ -111,12 +117,20 @@ namespace Back_BookMySport.Migrations
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId1")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("GymId");
 
                     b.HasIndex("SportCategoryId")
                         .IsUnique();
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Sessions");
 
@@ -131,7 +145,8 @@ namespace Back_BookMySport.Migrations
                             MaxBooking = 3,
                             Name = "Séance 1",
                             SportCategoryId = 1,
-                            StartTime = new DateTime(2023, 10, 27, 16, 0, 0, 0, DateTimeKind.Unspecified)
+                            StartTime = new DateTime(2023, 10, 27, 16, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = 0
                         });
                 });
 
@@ -405,6 +420,25 @@ namespace Back_BookMySport.Migrations
                         .HasColumnType("nvarchar(10)");
 
                     b.HasDiscriminator().HasValue("User");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "c8d8869e-8877-4003-9d71-3596060330af",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            PasswordHash = "12345azertyA/",
+                            PhoneNumber = "0606060606",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "9d58836f-7f4a-4d09-b39c-3581cb408f1b",
+                            TwoFactorEnabled = false,
+                            UserName = "test@gmail.com",
+                            FirstName = "Grégory",
+                            LastName = "Schoemaecker",
+                            Phone = "0606060606"
+                        });
                 });
 
             modelBuilder.Entity("Back_BookMySport.Models.Booking", b =>
@@ -415,7 +449,15 @@ namespace Back_BookMySport.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Back_BookMySport.Models.User", "User")
+                        .WithMany("Bookins")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Session");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Back_BookMySport.Models.Session", b =>
@@ -432,9 +474,15 @@ namespace Back_BookMySport.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Back_BookMySport.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId1");
+
                     b.Navigation("Gym");
 
                     b.Navigation("SportCategory");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -501,6 +549,11 @@ namespace Back_BookMySport.Migrations
             modelBuilder.Entity("Back_BookMySport.Models.SportCategory", b =>
                 {
                     b.Navigation("Session");
+                });
+
+            modelBuilder.Entity("Back_BookMySport.Models.User", b =>
+                {
+                    b.Navigation("Bookins");
                 });
 #pragma warning restore 612, 618
         }

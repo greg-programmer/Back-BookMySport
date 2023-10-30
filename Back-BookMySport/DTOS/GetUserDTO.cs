@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Back_BookMySport.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace Back_BookMySport.DTOS
 {
@@ -14,5 +15,6 @@ namespace Back_BookMySport.DTOS
         public string PasswordHash { get; set; }
         [Required]
         public string PhoneNumber { get; set; }
+        public List<Session> Sessions { get; set; }
     }
 }

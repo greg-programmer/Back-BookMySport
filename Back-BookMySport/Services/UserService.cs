@@ -4,14 +4,14 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Back_BookMySport.Services
 {
-    public class LoginService : ILogin
+    public class UserService : IUserService
     {
         private readonly UserManager<User> _userManager;       
 
-        public LoginService(UserManager<User> userManager)
+        public UserService(UserManager<User> userManager)
         {
             _userManager = userManager;
-        }
+        }       
 
         public async Task<User> Login(string username, string password)
         {

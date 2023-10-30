@@ -1,23 +1,32 @@
 ﻿using AutoMapper;
+using Azure.Core;
 using Back_BookMySport.Data;
 using Back_BookMySport.DTOS;
 using Back_BookMySport.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Net.Http.Headers;
+
 namespace Back_BookMySport.Repositories
 {
     public class UserRepository : IUser
     {
         private readonly ApplicationDbContext _db;
         private readonly UserManager<User> _userManager;
-        private readonly IMapper _mapper;
+        private readonly IMapper _mapper;      
 
-        public UserRepository( ApplicationDbContext db, UserManager<User> userManager,IMapper mapper)
+        public UserRepository(ApplicationDbContext db, UserManager<User> userManager, IMapper mapper, IHttpContextAccessor httpContextAccessor)
         {
             _db = db;
             _userManager = userManager;
-            _mapper = mapper;
+            _mapper = mapper;          
         }
+
+
+
+
 
         //Méthode pour créer un utilisateur/
         public async Task<bool> Create(RegisterRequestDTO registerRequestDTO)
@@ -38,9 +47,10 @@ namespace Back_BookMySport.Repositories
              await _db.SaveChangesAsync();    
             return true;            
         }
-
+        [Authorize]
         public async Task<bool> Delete(string id)
         {
+                   
            var user = await _db.Users.FirstOrDefaultAsync( u => u.Id == id);
             if(user != null)
             {
@@ -52,7 +62,7 @@ namespace Back_BookMySport.Repositories
 
         public async Task<GetUserDTO> GetUser(string id)
         {
-            var user = await _userManager.FindByIdAsync(id);
+            var user = await _userManager.FindByIdAsync(id);            
             if (user != null)
             {
              GetUserDTO getUserDTO = _mapper.Map<GetUserDTO>(user);
