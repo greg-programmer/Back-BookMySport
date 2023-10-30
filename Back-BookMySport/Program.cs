@@ -25,6 +25,7 @@ builder.Services.AddScoped<IUser, UserRepository>();
 builder.Services.AddScoped<ILogin, LoginService>();
 builder.Services.AddScoped<IRepository<Booking>, BookingService>();
 builder.Services.AddScoped<IRepository<Session>, SessionService>();
+builder.Services.AddScoped<IRepository<SportCategory>, SportService>();
 builder.Services.AddScoped<Settings>();
 builder.Services.AddIdentityCore<User>(options  =>
 {
