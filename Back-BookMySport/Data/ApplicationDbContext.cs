@@ -67,7 +67,7 @@ namespace Back_BookMySport.Data
                     LastName = "Schoemaecker",
                     FirstName = "Grégory",
                     UserName = "test@gmail.com",
-                    PasswordHash = "12345azertyA/",
+                    PasswordHash = "AQAAAAIAAYagAAAAEMXEAPelpYjJFJDY/2fdIFDsfLu4s7+5Y8cQ4s/ggjpLJFgxTAGSXPKMygrCV9EufQ==",
                     PhoneNumber = "0606060606",
                     Phone = "0606060606"
                 });

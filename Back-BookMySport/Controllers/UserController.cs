@@ -52,7 +52,10 @@ namespace Back_BookMySport.Controllers
             {
                 List<Claim> claims = new List<Claim>()
             {
-              new Claim("UserId", userConnected.Id.ToString())// on peut ajouter l'Id de l'utilisateur en Claim
+              new Claim("UserId", userConnected.Id.ToString()),// on peut ajouter l'Id de l'utilisateur en Claim
+              new Claim("FirstName", userConnected.FirstName.ToString()),
+                new Claim("UserName", userConnected.UserName.ToString()),
+
             };
                     SigningCredentials signingCredentials = new SigningCredentials(
                     new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_settings.SecretKey)),
@@ -74,6 +77,8 @@ namespace Back_BookMySport.Controllers
                     Token = token,
                     Message = "Authentication Successfull !!!",
                     User = userConnected.Id,
+                    userConnected.FirstName,
+                    userConnected.UserName,
                 });
                 }
             return Unauthorized();              
@@ -96,22 +101,22 @@ namespace Back_BookMySport.Controllers
             return NotFound("Utilisateur est introuvable ou l'email existe déjà !");
             
         }
-        [Authorize]
-        [HttpGet]
-        public async Task<IActionResult> GetById(string userId)
-        {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-            string userConnected = identity.FindFirst("UserId").Value;
-            if (userConnected != userId)
-            {
-                return Forbid();
-            }
-            var user = await _user.GetUser(userId);
-            if(user == null)
-            {
-                return NotFound();
-            }
-            return Ok(user);
-        }
+        //[Authorize]
+        //[HttpGet]
+        //public async Task<IActionResult> GetById(string userId)
+        //{
+        //    var identity = HttpContext.User.Identity as ClaimsIdentity;
+        //    string userConnected = identity.FindFirst("UserId").Value;          
+        //    if (userConnected != userId)
+        //    {
+        //        return Forbid();
+        //    }
+        //    var user = await _user.GetUser(userId);
+        //    if(user == null)
+        //    {
+        //        return NotFound();
+        //    }
+        //    return Ok(user);
+        //}
     }
 }
