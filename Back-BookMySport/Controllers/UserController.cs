@@ -42,7 +42,7 @@ namespace Back_BookMySport.Controllers
           
                 return Ok(new RegisterRequestDTO()
                 {
-                    LastName = userDTO.LastName,
+                    FirstName = userDTO.FirstName,
                     UserName = userDTO.UserName,
                 });
             }

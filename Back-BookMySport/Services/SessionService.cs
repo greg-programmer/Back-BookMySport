@@ -32,12 +32,12 @@ public class SessionService : IRepository<Session>
 
     public async Task<List<Session>> GetAll()
     {
-        return await _dbContext.Sessions.ToListAsync();
+        return await _dbContext.Sessions.Include(s => s.Gym).ToListAsync();
     }
 
     public async Task<List<Session>> GetAll(Expression<Func<Session, bool>> predicate)
     {
-        return await _dbContext.Sessions.Where(predicate).ToListAsync();
+        return await _dbContext.Sessions.Where(predicate).Include(s => s.Gym).ToListAsync();
     }
 
     public async Task<bool> Update(Session session)

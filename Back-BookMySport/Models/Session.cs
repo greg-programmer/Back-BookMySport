@@ -33,8 +33,8 @@ public class Session
     
     //One-to-many Gyms
     public int GymId { get; set; }
-    [JsonIgnore]
-    public Gym Gym { get; set; }
+
+    public Gym? Gym { get; set; }
 
     //One-to-many bookings
     public List<Booking> Bookings { get; set; }
