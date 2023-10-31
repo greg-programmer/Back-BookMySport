@@ -40,8 +40,9 @@ public class BookingController : ControllerBase
             return Forbid();
         }
         List<Booking> bookings = await _bookingService.GetAll();
+        List<BookingDTO> bookingDtos = _mapper.Map<List<BookingDTO>>(bookings);
         
-        return Ok(bookings);
+        return Ok(bookingDtos);
     }
 
     [Authorize]
@@ -77,12 +78,15 @@ public class BookingController : ControllerBase
 
         if (createdAtId > 0)
         {
+            BookingDTO bookingDto = _mapper.Map<BookingDTO>(booking);
             return Ok(new
             {
                Message = "Booking added",
                Booking = bookingDTO
             });
         }
+        
+        
         return NotFound("Bad Request");
     }
     [Authorize]

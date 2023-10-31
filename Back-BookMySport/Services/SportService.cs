@@ -47,4 +47,9 @@ public class SportService : IRepository<SportCategory>
     {
         throw new NotImplementedException();
     }
+
+    public Task<List<SportCategory>> GetAllFromUser(string id)
+    {
+        throw new NotImplementedException();
+    }
 }
