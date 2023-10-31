@@ -11,6 +11,7 @@ public class MapperProfile : Profile
     {
          CreateMap<Booking,BookingDTO>().ReverseMap();
         CreateMap<Session,SessionDTO>().ReverseMap();
+        CreateMap<Session,SessionUserBookedDTO>().ReverseMap();
         CreateMap<SportCategory,SportCategoryDTO>().ReverseMap();
         CreateMap<Gym,GymDTO>().ReverseMap();
         CreateMap<User, RegisterRequestDTO>().ReverseMap();
