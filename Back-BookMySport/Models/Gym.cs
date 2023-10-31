@@ -7,6 +7,5 @@ public class Gym
     public string Phone { get; set; }
     public string Address { get; set; }
     public List<Session> OpenSessions { get; set; }
-
 }
 
