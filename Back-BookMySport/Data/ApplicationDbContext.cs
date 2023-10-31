@@ -40,28 +40,36 @@ namespace Back_BookMySport.Data
                 {
                     Id = 1,
                     Name = "Fitness Park",
-                    Address = "1 rue Lille, 59000 Lille",
+                    Street = "1 rue Lille, 59000 Lille",
+                    City = "Lille",
+                    ZipCode = "59000",
                     Phone = "0608090909"
                 },
                 new Gym()
                 {
                     Id = 2,
                     Name = "BasicFit",
-                    Address = "1 rue Roubaix, 59100 Roubaix",
+                    Street = "1 rue Roubaix, 59100 Roubaix",
+                    City = "Roubaix",
+                    ZipCode = "59100",
                     Phone = "0608090909"
                 },
                 new Gym()
                 {
                     Id = 3,
                     Name = "Kipstadium",
-                    Address = "1 rue Tourcoing, 59000 Tourcoing",
+                    Street = "1 rue Tourcoing",
+                    City = "Tourcoing",
+                    ZipCode = "59599",
                     Phone = "0608090909"
                 },
                 new Gym()
                 {
                     Id = 4,
                     Name = "UrbanSoccer",
-                    Address = "1 rue Bondu, 59000 Bondu",
+                    Street = "1 rue Bondu",
+                    City = "Bondu",
+                    ZipCode = "59910",
                     Phone = "0608090909"
                 },
             };

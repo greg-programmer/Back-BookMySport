@@ -59,7 +59,7 @@ namespace Back_BookMySport.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Address")
+                    b.Property<string>("City")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -71,6 +71,14 @@ namespace Back_BookMySport.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ZipCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Gyms");
@@ -79,30 +87,38 @@ namespace Back_BookMySport.Migrations
                         new
                         {
                             Id = 1,
-                            Address = "1 rue Lille, 59000 Lille",
+                            City = "Lille",
                             Name = "Fitness Park",
-                            Phone = "0608090909"
+                            Phone = "0608090909",
+                            Street = "1 rue Lille, 59000 Lille",
+                            ZipCode = "59000"
                         },
                         new
                         {
                             Id = 2,
-                            Address = "1 rue Roubaix, 59100 Roubaix",
+                            City = "Roubaix",
                             Name = "BasicFit",
-                            Phone = "0608090909"
+                            Phone = "0608090909",
+                            Street = "1 rue Roubaix, 59100 Roubaix",
+                            ZipCode = "59100"
                         },
                         new
                         {
                             Id = 3,
-                            Address = "1 rue Tourcoing, 59000 Tourcoing",
+                            City = "Tourcoing",
                             Name = "Kipstadium",
-                            Phone = "0608090909"
+                            Phone = "0608090909",
+                            Street = "1 rue Tourcoing",
+                            ZipCode = "59599"
                         },
                         new
                         {
                             Id = 4,
-                            Address = "1 rue Bondu, 59000 Bondu",
+                            City = "Bondu",
                             Name = "UrbanSoccer",
-                            Phone = "0608090909"
+                            Phone = "0608090909",
+                            Street = "1 rue Bondu",
+                            ZipCode = "59910"
                         });
                 });
 
