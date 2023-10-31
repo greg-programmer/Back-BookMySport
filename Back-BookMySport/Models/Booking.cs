@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Back_BookMySport.Models;
 
-public class Booking
+public class  Booking
 {
     public int Id { get; set; }
     public DateTime BookDate { get; set; }= DateTime.Now;
