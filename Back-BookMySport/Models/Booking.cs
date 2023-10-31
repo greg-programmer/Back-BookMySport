@@ -9,9 +9,8 @@ public class Booking
     public DateTime BookDate { get; set; }= DateTime.Now;
     public int SessionId { get; set; }
     [JsonIgnore]
-    public Session? Session { get; set; }    
-    public string UserId { get; set; }
-    [JsonIgnore]
-    public User User { get; set; }
+    public Session? Session { get; set; }
+    // public int UserId { get; set; }
+    // public User User { get; set; }
     
 }

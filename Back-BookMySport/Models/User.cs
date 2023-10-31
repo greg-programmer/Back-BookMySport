@@ -15,8 +15,6 @@ namespace Back_BookMySport.Models
         public string FirstName { get; set; }
         [Required]
         [MaxLength(10)]
-        public string Phone { get; set; }  
-        public List<Booking> Bookins { get; set; } = new List<Booking> ();    
-
+        public string Phone { get; set; }       
     }
 }
