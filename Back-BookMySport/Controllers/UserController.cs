@@ -39,7 +39,12 @@ namespace Back_BookMySport.Controllers
         {
             if (await _user.Create(userDTO))
             {
-                return Ok("Utilisateur créé !");
+          
+                return Ok(new RegisterRequestDTO()
+                {
+                    LastName = userDTO.LastName,
+                    UserName = userDTO.UserName,
+                });
             }
             return BadRequest("Email existant !");
         }
