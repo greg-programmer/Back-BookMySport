@@ -4,14 +4,11 @@ using Back_BookMySport.Models;
 using Back_BookMySport.Repositories;
 using Back_BookMySport.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
-using System.Text.Json.Serialization ;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
