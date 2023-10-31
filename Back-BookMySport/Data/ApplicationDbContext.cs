@@ -33,34 +33,209 @@ namespace Back_BookMySport.Data
                 new SportCategory() { Id = 5, Name = "Volley", Sessions = new List<Session>() }
             };
             builder.Entity<SportCategory>().HasData(sportCategory);
-            
-            var session = new Session()
+
+            var gym = new List<Gym>()
             {
-                Id = 1,
-                Name = "Séance 1",
-                Description = "Séance de fitness",
-                MaxBooking = 3,
-                ImagePath = "",
-                Bookings = new List<Booking>(),
-                StartTime = new DateTime(2023,10,27,16,0,0),
-                FinishTime = new DateTime(2023,10,27,17,0,0),
-                SportCategoryId = 1,
-                GymId = 1
+                new Gym()
+                {
+                    Id = 1,
+                    Name = "Fitness Park",
+                    Street = "1 rue Lille, 59000 Lille",
+                    City = "Lille",
+                    ZipCode = "59000",
+                    Phone = "0608090909"
+                },
+                new Gym()
+                {
+                    Id = 2,
+                    Name = "BasicFit",
+                    Street = "1 rue Roubaix, 59100 Roubaix",
+                    City = "Roubaix",
+                    ZipCode = "59100",
+                    Phone = "0608090909"
+                },
+                new Gym()
+                {
+                    Id = 3,
+                    Name = "Kipstadium",
+                    Street = "1 rue Tourcoing",
+                    City = "Tourcoing",
+                    ZipCode = "59599",
+                    Phone = "0608090909"
+                },
+                new Gym()
+                {
+                    Id = 4,
+                    Name = "UrbanSoccer",
+                    Street = "1 rue Bondu",
+                    City = "Bondu",
+                    ZipCode = "59910",
+                    Phone = "0608090909"
+                },
             };
-            
-            builder.Entity<Session>().HasData(session);
-            
-            var gym = new Gym()
-            {
-                Id = 1,
-                Name = "Fitness Park",
-                Address = "1 rue Lille, 59000 Lille",
-                Phone = "0608090909"
-                
-                    
-            };
-            
+
+
             builder.Entity<Gym>().HasData(gym);
+
+            var sessionId = 1;
+            var gymSession = new List<Session>();
+
+
+            // séance pour GymId =1
+            for (int dayNovember = 1; dayNovember < 31; dayNovember++)
+            {
+                string dayToString = dayNovember < 10 ? $"0{dayNovember}" : $"{dayNovember}";
+                for (int j = 0; j < 13; j++)
+                {
+                    var a = new Session()
+                    {
+                        Id = sessionId,
+                        Name = $"Séance de {10 + j}h à {11 + j}h",
+                        Description = "Séance de fitness",
+                        MaxBooking = 3,
+                        ImagePath = "/img/fitness.jpg",
+                        Bookings = new List<Booking>(),
+                        StartTime = DateTime.Parse($"{dayToString}/11/2023 {10+j}:15:12",new CultureInfo("fr-FR", false)),
+                        FinishTime = DateTime.Parse($"{dayToString}/11/2023 {11+j}:15:12",new CultureInfo("fr-FR", false)),
+                        SportCategoryId = 1,
+                        GymId = 1
+                    };
+                    gymSession.Add(a);
+                    sessionId++;
+                }
+
+                for (int j = 0; j < 13; j++)
+                {
+                    var a = new Session()
+                    {
+                        Id = sessionId,
+                        Name = $"Séance de {10 + j}h à {11 + j}h",
+                        Description = "Séance de Boxe",
+                        MaxBooking = 3,
+                        ImagePath = "/img/boxe.jpg",
+                        Bookings = new List<Booking>(),
+                        StartTime = DateTime.Parse($"{dayToString}/11/2023 {10+j}:15:12",new CultureInfo("fr-FR", false)),
+                        FinishTime = DateTime.Parse($"{dayToString}/11/2023 {11+j}:15:12",new CultureInfo("fr-FR", false)),
+                        SportCategoryId = 4,
+                        GymId = 1
+                    };
+                    gymSession.Add(a);
+                    sessionId++;
+                }
+            }
+
+
+            // séance pour GymId =2
+            for (int dayNovember = 1; dayNovember < 31; dayNovember++)
+            {
+                string dayToString = dayNovember < 10 ? $"0{dayNovember}" : $"{dayNovember}";
+                for (int j = 0; j < 13; j++)
+                {
+                    var a = new Session()
+                    {
+                        Id = sessionId,
+                        Name = $"Séance de {10 + j}h à {11 + j}h",
+                        Description = "Séance de fitness",
+                        MaxBooking = 3,
+                        ImagePath = "/img/fitness2.jpg",
+                        Bookings = new List<Booking>(),
+                        StartTime = DateTime.Parse($"{dayToString}/11/2023 {10+j}:15:12",new CultureInfo("fr-FR", false)),
+                        FinishTime = DateTime.Parse($"{dayToString}/11/2023 {11+j}:15:12",new CultureInfo("fr-FR", false)),
+                        SportCategoryId = 1,
+                        GymId = 2
+                    };
+                    gymSession.Add(a);
+                    sessionId++;
+                }
+            }
+
+
+            // séance pour GymId =3
+            for (int dayNovember = 1; dayNovember < 31; dayNovember++)
+            {
+                string dayToString = dayNovember < 10 ? $"0{dayNovember}" : $"{dayNovember}";
+                for (int j = 0; j < 13; j++)
+                {
+                    var a = new Session()
+                    {
+                        Id = sessionId,
+                        Name = $"Séance de {10 + j}h à {11 + j}h",
+                        Description = "Séance de football",
+                        MaxBooking = 10,
+                        ImagePath = "/img/football.jpeg",
+                        Bookings = new List<Booking>(),
+                        StartTime = DateTime.Parse($"{dayToString}/11/2023 {10+j}:15:12",new CultureInfo("fr-FR", false)),
+                        FinishTime = DateTime.Parse($"{dayToString}/11/2023 {11+j}:15:12",new CultureInfo("fr-FR", false)),
+                        SportCategoryId = 3,
+                        GymId = 3
+                    };
+                    gymSession.Add(a);
+                    sessionId++;
+                }
+
+                for (int j = 0; j < 13; j++)
+                {
+                    var a = new Session()
+                    {
+                        Id = sessionId,
+                        Name = $"Séance de {10 + j}h à {11 + j}h",
+                        Description = "Séance de basketball",
+                        MaxBooking = 10,
+                        ImagePath = "/img/basket.jpeg",
+                        Bookings = new List<Booking>(),
+                        StartTime = DateTime.Parse($"{dayToString}/11/2023 {10+j}:15:12",new CultureInfo("fr-FR", false)),
+                        FinishTime = DateTime.Parse($"{dayToString}/11/2023 {11+j}:15:12",new CultureInfo("fr-FR", false)),
+                        SportCategoryId = 2,
+                        GymId = 3
+                    };
+                    gymSession.Add(a);
+                    sessionId++;
+                }
+
+                for (int j = 0; j < 13; j++)
+                {
+                    var a = new Session()
+                    {
+                        Id = sessionId,
+                        Name = $"Séance de {10 + j}h à {11 + j}h",
+                        Description = "Séance de volley",
+                        MaxBooking = 10,
+                        ImagePath = "/img/volley.jpeg",
+                        Bookings = new List<Booking>(),
+                        StartTime = DateTime.Parse($"{dayToString}/11/2023 {10+j}:15:12",new CultureInfo("fr-FR", false)),
+                        FinishTime = DateTime.Parse($"{dayToString}/11/2023 {11+j}:15:12",new CultureInfo("fr-FR", false)),
+                        SportCategoryId = 5,
+                        GymId = 3
+                    };
+                    gymSession.Add(a);
+                    sessionId++;
+                }
+            }
+
+
+            // séance pour GymId =4
+            for (int dayNovember = 1; dayNovember < 31; dayNovember++)
+            {
+                string dayToString = dayNovember < 10 ? $"0{dayNovember}" : $"{dayNovember}";
+                for (int j = 0; j < 13; j++)
+                {
+                    var a = new Session()
+                    {
+                        Id = sessionId,
+                        Name = $"Séance de {10 + j}h à {11 + j}h",
+                        Description = "Séance de football",
+                        MaxBooking = 10,
+                        ImagePath = "/img/football.jpeg",
+                        Bookings = new List<Booking>(),
+                        StartTime = DateTime.Parse($"{dayToString}/11/2023 {10+j}:15:12",new CultureInfo("fr-FR", false)),
+                        FinishTime = DateTime.Parse($"{dayToString}/11/2023 {11+j}:15:12",new CultureInfo("fr-FR", false)),
+                        SportCategoryId = 3,
+                        GymId = 4
+                    };
+                    gymSession.Add(a);
+                    sessionId++;
+                }
+            }
         }
     }
 }

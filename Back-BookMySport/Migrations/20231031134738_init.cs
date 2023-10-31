@@ -64,7 +64,9 @@ namespace Back_BookMySport.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Street = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ZipCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    City = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -251,8 +253,14 @@ namespace Back_BookMySport.Migrations
 
             migrationBuilder.InsertData(
                 table: "Gyms",
-                columns: new[] { "Id", "Address", "Name", "Phone" },
-                values: new object[] { 1, "1 rue Lille, 59000 Lille", "Fitness Park", "0608090909" });
+                columns: new[] { "Id", "City", "Name", "Phone", "Street", "ZipCode" },
+                values: new object[,]
+                {
+                    { 1, "Lille", "Fitness Park", "0608090909", "1 rue Lille, 59000 Lille", "59000" },
+                    { 2, "Roubaix", "BasicFit", "0608090909", "1 rue Roubaix, 59100 Roubaix", "59100" },
+                    { 3, "Tourcoing", "Kipstadium", "0608090909", "1 rue Tourcoing", "59599" },
+                    { 4, "Bondu", "UrbanSoccer", "0608090909", "1 rue Bondu", "59910" }
+                });
 
             migrationBuilder.InsertData(
                 table: "SportCategories",
@@ -265,11 +273,6 @@ namespace Back_BookMySport.Migrations
                     { 4, "Boxe" },
                     { 5, "Volley" }
                 });
-
-            migrationBuilder.InsertData(
-                table: "Sessions",
-                columns: new[] { "Id", "Description", "FinishTime", "GymId", "ImagePath", "MaxBooking", "Name", "SportCategoryId", "StartTime" },
-                values: new object[] { 1, "Séance de fitness", new DateTime(2023, 10, 27, 17, 0, 0, 0, DateTimeKind.Unspecified), 1, "", 3, "Séance 1", 1, new DateTime(2023, 10, 27, 16, 0, 0, 0, DateTimeKind.Unspecified) });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

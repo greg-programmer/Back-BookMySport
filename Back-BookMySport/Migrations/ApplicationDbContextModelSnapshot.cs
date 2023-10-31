@@ -57,7 +57,7 @@ namespace Back_BookMySport.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Address")
+                    b.Property<string>("City")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -69,6 +69,14 @@ namespace Back_BookMySport.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Street")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ZipCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Gyms");
@@ -77,9 +85,38 @@ namespace Back_BookMySport.Migrations
                         new
                         {
                             Id = 1,
-                            Address = "1 rue Lille, 59000 Lille",
+                            City = "Lille",
                             Name = "Fitness Park",
-                            Phone = "0608090909"
+                            Phone = "0608090909",
+                            Street = "1 rue Lille, 59000 Lille",
+                            ZipCode = "59000"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            City = "Roubaix",
+                            Name = "BasicFit",
+                            Phone = "0608090909",
+                            Street = "1 rue Roubaix, 59100 Roubaix",
+                            ZipCode = "59100"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            City = "Tourcoing",
+                            Name = "Kipstadium",
+                            Phone = "0608090909",
+                            Street = "1 rue Tourcoing",
+                            ZipCode = "59599"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            City = "Bondu",
+                            Name = "UrbanSoccer",
+                            Phone = "0608090909",
+                            Street = "1 rue Bondu",
+                            ZipCode = "59910"
                         });
                 });
 
@@ -124,20 +161,6 @@ namespace Back_BookMySport.Migrations
                     b.HasIndex("SportCategoryId");
 
                     b.ToTable("Sessions");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Séance de fitness",
-                            FinishTime = new DateTime(2023, 10, 27, 17, 0, 0, 0, DateTimeKind.Unspecified),
-                            GymId = 1,
-                            ImagePath = "",
-                            MaxBooking = 3,
-                            Name = "Séance 1",
-                            SportCategoryId = 1,
-                            StartTime = new DateTime(2023, 10, 27, 16, 0, 0, 0, DateTimeKind.Unspecified)
-                        });
                 });
 
             modelBuilder.Entity("Back_BookMySport.Models.SportCategory", b =>
